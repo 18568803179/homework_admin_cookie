@@ -31,19 +31,19 @@ export default {
     onSubmit () {
       Login(this.form).then(res => {
         console.log(res);
+        
+        this.$router.push('/home')
       })
     }
   },
   mounted () {
-    this.$axios.post('http://admintest.happymmall.com/manage/user/login.do',
-      { username: 'admin', password: 'admin' }).
-      then(res => { console.log(res); })
+
   },
 }
 </script>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 .home {
   width: 400px;
   height: 400px;

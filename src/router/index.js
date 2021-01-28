@@ -6,18 +6,33 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
+    path: '/home',
     component: Home,
     children: [
       {
         path: '/',
+        meta:{title:'欢迎'},
+        component:()=>import('../views/page/welcome')
+      },
+      {
+        path: '/goods',
+        meta:{title:"商品管理"},
         component:()=>import('../views/page/shop.vue')
+      },
+      {
+        path: '/category',
+        meta: { title: '品类管理' },
+        component:()=>import('../views/page/category')
+      },
+      {
+        path: '/order',
+        meta: { title: '订单管理' },
+        component:()=>import('../views/page/order')
       }
     ]
   },
   {
-    path: '/login',
+    path: '/',
     component:()=>import('@/views/login')
   }
 ]

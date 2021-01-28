@@ -1,59 +1,110 @@
 <template>
-  <div class="shop">
-    <el-container style="height: 92vh">
-      <el-aside width="200px">
-        <el-menu
-          default-active="2"
-          class="el-menu-vertical-demo"
-          background-color="#545c64"
-          text-color="#fff"
-          active-text-color="#ffd04b"
-          router
-        >
-          <el-menu-item index="/home">
-            <i class="el-icon-s-data"></i>
-            <span slot="title">首页</span>
-          </el-menu-item>
-          <el-submenu index="2">
-            <template slot="title">
-              <i class="el-icon-s-goods"></i>
-              <span>商品</span>
-            </template>
-            <el-menu-item index="/goods">商品管理</el-menu-item>
-            <el-menu-item index="/category">品类管理</el-menu-item>
-          </el-submenu>
-          <el-submenu index="3">
-            <template slot="title">
-              <i class="el-icon-s-claim"></i>
-              <span>订单</span>
-            </template>
-            <el-menu-item index="/order">订单管理</el-menu-item>
-          </el-submenu>
-          <el-submenu index="4">
-            <template slot="title">
-              <i class="el-icon-user-solid"></i>
-              <span>用户</span>
-            </template>
-            <el-menu-item index="/user">用户列表</el-menu-item>
-          </el-submenu>
-        </el-menu>
-      </el-aside>
-      <el-main style="background: #f3f3f3">
-        <router-view></router-view>
-      </el-main>
-    </el-container>
+  <div>
+    <div class="shopp">
+      <span>商品管理</span>
+      <el-button type="info">+添加商品</el-button>
+    </div>
+    <p></p>
+    <el-form :inline="true" :model="formInline" class="demo-form-inline">
+      <el-form-item label>
+        <el-select v-model="formInline.Aid" placeholder="按商品id查询">
+          <el-option label="按商品id查询" value="search"></el-option>
+          <el-option label="按商品名称查询" value="search"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label>
+        <el-input v-model="formInline.user" placeholder="按关键词查询"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="search">查询</el-button>
+      </el-form-item>
+    </el-form>
+
+    <el-table :data="list" style="width: 100%">
+      <el-table-column prop="id" label="ID" width="150"></el-table-column>
+      <el-table-column prop="name" label="信息" width="180"></el-table-column>
+      <el-table-column prop="price" label="价格" width="180"></el-table-column>
+      <el-table-column label="状态" width="180">
+        <template slot-scope="scope">
+          {{ scope.row.status == 2 ? "已下架" : "在售" }}
+          <button>{{ scope.row.status == 1 ? "下架" : "上架" }}</button>
+        </template>
+      </el-table-column>
+      <el-table-column prop label="操作">
+        <template slot-scope>
+          <el-button type="text" size="small">修改名称</el-button>
+          <el-button type="text" size="small">查看其子品类</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+
+    <el-pagination
+      @current-change="handleCurrentChange"
+      :current-page="pageNum"
+      :page-size="pageSize"
+      :total="total"
+    ></el-pagination>
   </div>
 </template>
 
-
 <style lang="scss" scoped>
-.el-aside {
-  width: 250px !important;
+.el-table .warning-row {
+  background: oldlace;
 }
-.el-container {
-  height: 100%;
+.el-table .success-row {
+  background: #f0f9eb;
 }
-.el-menu {
-  height: 100%;
+.shopp {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+  font-size: 30px;
 }
 </style>
+
+<script>
+import { getShop } from '@/api/methods'
+export default {
+  methods: {
+    search () {
+      console.log(this.formInline.Aid, this.formInline.user);
+      this.$netClient
+        .SEARCH(this.formInline.Aid, this.formInline.user)
+        .then((res) => {
+          console.log(res);
+          this.list = res.data.data.list;
+        });
+    },
+    handleCurrentChange (val) {
+      console.log(val);
+      this.$netClient.SHOPP(val).then((res) => {
+        console.log(res);
+        this.list = res.data.data.list;
+        this.total = res.data.data.total;
+      });
+    },
+  },
+  data () {
+    return {
+      list: [],
+      total: 0,
+      pageNum: 1,
+      pageSize: 10,
+      formInline: {
+        Aid: "",
+        user: "",
+      },
+    };
+  },
+  mounted () {
+    getShop({ num: 1 }).then(res => {
+      console.log(res);
+      this.list = res.data.data.list;
+      this.total = res.data.data.total;
+    })
+  },
+};
+</script>
+
+
+

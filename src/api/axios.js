@@ -7,7 +7,7 @@ import { Loading } from 'element-ui';
 const Axios = axios.create({
   baseURL: '/api',
   timeout: 6600,
-  withCredentials : false // 允许携带cookie 
+  withCredentials : true // 允许携带cookie 
 
 });
 
