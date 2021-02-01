@@ -9,7 +9,9 @@
           </div>
           <div class="userinfo">
             <i class="el-icon-user-solid"></i>
-            <p>欢迎，{{ this.$store.state.userinfo.username }}</p>
+            <p style="width:200px;text-align:center">
+              欢迎：<span style="color:red">{{ this.$store.state.username }}</span>
+            </p>
             <el-button size="small" style="margin-left: 10px" @click="exit">退出</el-button>
           </div>
         </div>
@@ -53,7 +55,6 @@
           </el-menu>
         </el-aside>
         <el-main style="background: #f3f3f3">
-          <Bread></Bread>
           <router-view></router-view>
         </el-main>
       </el-container>
@@ -62,11 +63,9 @@
 </template>
 
 <script>
-import Bread from '../components/Breadcrumb'
+
 export default {
-  components:{
-    Bread
-  },
+
   data () {
     return {
 

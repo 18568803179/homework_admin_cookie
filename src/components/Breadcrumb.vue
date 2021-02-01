@@ -12,10 +12,12 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .el-breadcrumb {
-  height: 25px;
+  height: 34px;
+  // line-height: 34px;
   min-width: 100px;
+  font-size: 20px;
   border-bottom: 1px solid #cccccc;
 }
 span span {

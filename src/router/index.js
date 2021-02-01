@@ -12,22 +12,26 @@ const routes = [
       {
         path: '/',
         meta:{title:'欢迎'},
-        component:()=>import('../views/page/welcome')
+        component:()=>import('../components/welcome')
       },
       {
         path: '/goods',
         meta:{title:"商品管理"},
-        component:()=>import('../views/page/shop.vue')
+        component:()=>import('../views/shop/shop.vue')
+      },
+      {
+        path: '/shopDetail',  //商品详情
+        component:()=>import('../views/shop/shopDetail')
       },
       {
         path: '/category',
         meta: { title: '品类管理' },
-        component:()=>import('../views/page/category')
+        component:()=>import('../views/shop/category')
       },
       {
         path: '/order',
         meta: { title: '订单管理' },
-        component:()=>import('../views/page/order')
+        component:()=>import('../views/order/order')
       }
     ]
   },

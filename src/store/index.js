@@ -12,6 +12,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    saveName (state, username) {
+      state.username = username
+    }
   },
   actions: {
   },
