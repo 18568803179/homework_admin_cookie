@@ -17,11 +17,11 @@ export const imgUpload = (params) => request('post', '/manage/product/upload.do'
 
 //添加商品
 export const saveShop = (params) => {
-  let {categoryId,name,subtitle,subImages,detail,price,stock,status}=params
-  request('get', `/manage/product/save.do?categoryId=${categoryId}&name=${name}&subtitle=${subtitle}&subImages=${subImages}&price=${price}&stock=${stock}&status=1`)
+  let { categoryId, name, subtitle, subImages, detail, price, stock, status } = params
+  return request('get', `/manage/product/save.do?categoryId=${categoryId}&name=${name}&subtitle=${subtitle}&subImages=${subImages}&price=${price}&stock=${stock}&status=1`)
 }
 // 品类管理：
-export const getCateGory = (params=0) => request('get', `/manage/category/get_category.do?categoryId=${params}`)
+export const getCateGory = (params = 0) => request('get', `/manage/category/get_category.do?categoryId=${params}`)
 
 //订单管理
 export const getOrder = (params) => request('get', `manage/order/list.do?pageNum=${params.pageNum}`)

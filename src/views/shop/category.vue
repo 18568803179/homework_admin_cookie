@@ -27,7 +27,7 @@ export default {
     };
   },
   mounted () {
-    getCateGory({ categoryId: 0 }).then(res => {
+    getCateGory(0).then(res => {
       console.log(res);
       this.list = res.data.data;
     })

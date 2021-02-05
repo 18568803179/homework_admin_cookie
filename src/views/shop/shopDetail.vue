@@ -154,6 +154,7 @@ export default {
       }
       saveShop(params).then(res => {
         console.log(res);
+        this.$router.push('/goods')
       })
     },
   },
